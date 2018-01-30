@@ -805,7 +805,7 @@ This is very useful to define that a type is statically incompatible with
 another type, to enforce strong typing.
 
 .. code-block:: ada
-   
+
    procedure Main is
       --  ID card number type, incompatible with Integer.
       type Social_Security_Number
@@ -836,7 +836,7 @@ The syntax for enumerations uses the ``range <range>`` syntax:
     procedure Greet is
        type Days is (Monday, Tuesday, Wednesday, Thursday,
                      Friday, Saturday, Sunday);
-    
+
        type Weekend_Days is new Days range Saturday .. Sunday;
        --  New type, where only Saturday and Sunday are valid literals.
     begin
@@ -878,7 +878,7 @@ is a subprogram defined in the same scope with the type.
            Put_Line (Days'Image (D))
         end Print_Day;
         --  Print day is a primitive of the type Days
-    
+
        type Weekend_Days is new Days range Saturday .. Sunday;
 
        --  A procedure Print_Day is automatically inherited here. It is like
@@ -902,7 +902,7 @@ Subtypes
     procedure Greet is
        type Days is (Monday, Tuesday, Wednesday, Thursday,
                      Friday, Saturday, Sunday);
-    
+
        --  Declaration of a subtype
        subtype Weekend_Days is Days range Saturday .. Sunday;
        --                           ^ Constraint of the subtype
