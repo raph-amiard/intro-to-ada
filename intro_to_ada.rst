@@ -34,25 +34,24 @@ general focus on embedded systems. While Ada is and can be used as a
 general purpose language, it will really shine in low level
 applications:
 
-.. gusthoff: Why should we say that Ada "really shines" in low-level applications to the detriment of the high-level applications, where Ada can be (and should!) be used as well? What's the intention here? This paragraph makes it sound like you should use something different than Ada if you're not working especially in software development for embedded devices...
-
 -  Embedded systems with low memory requirements (no garbage collector
    allowed).
 -  Direct interfacing with hardware.
 -  Soft or hard real-time systems.
 -  Low level systems programming.
 
-This list is intentionally abstract. While today Ada has certain
-domains/niches where it is used a lot ---like Aerospace & Defense, civil
-aviation, public transportation, etc.--- it also means that Ada can be a
-great language for other applications in those abstract categories, such
-as:
+This list is intentionally abstract. Today,  Ada has certain domains /
+niches where it is used a lot, like Aerospace & Defense, civil aviation,
+public transportation, etc. These are domains that require a high degree
+of safety: a software defect in this kind of applications are not just an
+annoyance, but may have severe consequences. Ada provides safety features
+that allow for detecting defects at an early stage --- usually, at
+compilation time or using static analysis tools. In addition, Ada can also
+be used in to create applications in varied categories, such as:
 
 -  `Video game programming <https://github.com/AdaDoom3/AdaDoom3>`__
 -  `Real-time audio <http://www.electronicdesign.com/embedded-revolution/assessing-ada-language-audio-applications>`__
 -  `Kernel modules <http://www.nihamkin.com/tag/kernel.html>`__
-
-.. gusthoff: It's great to find our article on the list. However, isn't the fact that Ada is being used for applications where safety is a requirement much more interesting that multimedia applications? Shouldn't we stress the fact that, in these time where so many security issues are found on a daily basis, Ada provides means to avoid whole classes of bugs and detect errors in an early stage? I mean, these were some of the reasons why I got interested in the language in the first place...
 
 This is a non-comprehensive list that hopefully sheds light on which
 kind of programming Ada is good at.
@@ -61,8 +60,6 @@ In terms of modern languages, the closest in terms of targets and level
 of abstraction are probably
 `C++ <https://fr.wikipedia.org/wiki/C%2B%2B>`__ and
 `Rust <https://www.rust-lang.org/en-US/>`__.
-
-.. gusthoff: Do we need to mention these languages? I'd just ignore them instead!
 
 Philosophy
 ----------
@@ -100,12 +97,8 @@ considered that:
       This allows the compiler to be extremely helpful (read: strict)
       with the programmer.
 
-We will, during this course, indicate which individual language features
-are building blocks for that philosophy, and, in as honest a fashion as
-possible, indicate where some language design choices diverged from that
-philosophy - because no language is perfect, not even Ada :-).
-
-.. gusthoff: This paragraph sounds too informal in my opinion ("in as honest a fashion as possible", "no language is perfect, not even Ada :-)").
+During this course, we will explain the individual language features that
+are building blocks for that philosophy.
 
 Imperative language
 ===================
@@ -152,15 +145,17 @@ unsurprising result.
 
 There are several note worthy things in the above program:
 
--  A procedure is like a C/C++ function returning ``void``. We'll see
-   later how to declare proper functions.
+-  A subprogram in Ada can be either a procedure or a function. A
+   procedure, as used above, does not return a value when called. This is
+   similar to functions in C/C++ that return ``void``. We'll see later how
+   to declare functions in Ada.
 
-.. gusthoff: This paragraph does not really explain what a procedure actually is.
-
--  ``with`` and ``use`` are roughly like includes. We'll see later how
-   they work in detail. Here, we are requesting a standard library
-   module which contains a procedure to print text on the screen,
-   ``Put_Line``.
+-  ``with`` and ``use`` are used to reference external packages in the
+   procedure. This is similar to ``import`` in various languages or
+   roughly similar to ``#include`` in C/C++.
+   We'll see later how they work in detail. Here, we are requesting a
+   standard library module which contains a procedure to print text on the
+   screen: ``Put_Line``.
 
 -  ``Greet`` is a procedure, and the main entry point for our first
    program. Unlike in C or C++, it can be named anything you prefer. The
@@ -173,18 +168,22 @@ There are several note worthy things in the above program:
    C's ``printf``.
 
 -  Comments start with ``--`` and go to the end of the line. There is no
-   multi-line comment syntax.
+   multi-line comment syntax, that is, it is not possible to start a
+   comment in one line and continue it in the next line. The only way to
+   create multiple lines of comments in Ada is by using ``--`` on each
+   line. For example:
 
-.. gusthoff: Does the reader know what the multi-line comment syntax actually is?
+.. code-block:: ada
+
+    --  We start a comment in this line...
+    --  and we continue on the second line...
 
 Imperative language - Loops
 ---------------------------
 
-Ada has a lot of loops. None of them behave like the C/Java/Javascript
-for loop though. Their semantic is much more restricted, in line with
-Ada's philosophy.
-
-.. gusthoff: "a lot of" sounds a little bit exaggerated...
+Ada has three ways of specifying loops. None of them behave like the
+C/Java/Javascript for-loop though. Their semantic is much more restricted,
+which is in line with Ada's philosophy.
 
 For loops
 ~~~~~~~~~
@@ -236,10 +235,8 @@ Bare loops
 ~~~~~~~~~~
 
 Even though we started with the for loop, for familiarity, the purest,
-nakedest form of loop in Ada is the bare loop. In some sense, every
-other loop kind builds up on this one.
-
-.. gusthoff: "nakedest" form?! It sounds funny, but I'd rather avoid this kind of language here...
+form of loop in Ada is the bare loop. In some sense, every other loop kind
+builds up on this one.
 
 .. code-block:: ada
 
@@ -287,7 +284,7 @@ Ada has a last loop kind, while loops.
     with Ada.Text_IO; use Ada.Text_IO;
     procedure Greet is
     begin
-       --  Condition. *Must* be of type boolean (no Integers). Operator <
+       --  Condition. *Must* be of type Boolean (no Integers). Operator <
        --  returns a Boolean
        while I < 10 loop
           Put_Line("Hello, World!");
@@ -301,10 +298,8 @@ Here we see what assignment to a variable looks like. There is no
 ``I++`` short form to increment, as there is in many languages.
 
 Something important to note: Trying to treat any value other than a
-boolean as a boolean condition will result in a compile time error. This
+Boolean as a Boolean condition will result in a compile time error. This
 is a result of Ada's static strong typing.
-
-.. gusthoff: as far as I know, "Boolean" should always be spelled with upper-case "B".
 
 Imperative language - If/Else
 -----------------------------
@@ -326,7 +321,7 @@ Ada has an if statement. It is pretty unsurprising in form and function:
        end loop;
     end Greet;
 
-As for the while loop, the boolean condition must be of strict type
+As for the while loop, the Boolean condition must be of strict type
 ``Boolean``. Every relational operator in Ada returns a ``Boolean`` by
 default.
 
@@ -352,8 +347,6 @@ default.
 What we can see here is that Ada features an ``elsif`` keyword. For
 those interested, this is a way of avoiding the classical `dangling
 else <https://en.wikipedia.org/wiki/Dangling_else>`__ problem.
-
-.. gusthoff: I guess I would rather show an example here or in a separate page (but within our learning website) instead of pointing to Wikipedia.
 
 Imperative language - Case statement
 ------------------------------------
@@ -479,11 +472,8 @@ If expressions
         null;  --  When a subprogram is empty, null statement is mandatory
     end Main;
 
-Ada's if expression looks amazing, to be honest - and almost exactly
-like the if statement. There are a few differences that stems from the
-fact that it is an expression:
-
-.. gusthoff: Again, this sounds too informal. It might be "amazing" to us, but I'd rather refrain from giving an opinion here.
+Ada's if expression are similar to if statements. However, there are a few
+differences that stems from the fact that it is an expression:
 
 -  All branches' expressions must be of the same type
 -  An else branch is mandatory.
@@ -530,19 +520,11 @@ more details.
 Strongly typed language
 =======================
 
-Ada is a seriously typed language. It is interestingly modern in that
+Ada is a strongly typed language. It is interestingly modern in that
 aspect: Strong static typing is going through a popularity rise, due to
 multiple factors: Popularity of statically typed functional programming,
 a big push from the academic community in the typing domain, many
 practical languages with strong type systems emerging, etc.
-
-.. gusthoff: "seriously typed"? Seriously?! ;-)
-
-However, due to the requirements it arised from, and the philosophy that
-we stated above, Ada was kind of a hipster language, in that it was
-strongly typed before it was cool.
-
-.. gusthoff: I thought we've agreed that Ada is uncool! ;-) Now seriously, I'd rather remove the whole paragraph above, since it is out of scope for an "intro to Ada."
 
 What is a type?
 ---------------
@@ -550,8 +532,9 @@ What is a type?
 In statically typed languages, a type is mainly (but not only) a
 *compile time* construct. It is a construct commonly used in programming
 languages to enforce invariants about the behavior of a program.
-
-.. gusthoff: What if readers don't know what invariants are? Shouldn't we explain what is meant by that and what's the advantage of "enforcing invariants"?
+Invariants can be described as unchangeable properties that hold true for
+all variable of a given type. Enforcing them allows for ensuring that
+variables of a data type never have invalid values.
 
 A type is used to reason about *values* a program manipulates. The aim
 is to classify values by what you can accomplish with them, and this way
@@ -604,10 +587,8 @@ Another interesting thing that we can notice in the above example is the
 ``My_Int'Image (I)`` expresssion. In Ada, the
 ``Expr'Attribute (optional params)`` notation is used for what is called
 `attributes <TODOLINKATTRS>`__ in Ada. Attributes are built-in
-operations on types or on values. Their notation is a bit quirky by
-modern standards, using ``'``.
-
-.. gusthoff: "Quirky"? I wouldn't use this book to criticize the Ada language, especially because not everyone might agree with this opinion.
+operations on types or on values. They are accessed by using a ``'`` (the
+tick sign).
 
 Ada makes a few types available as "built-ins". ``Integer`` is one of
 them. Here is how ``Integer`` is defined:
@@ -626,8 +607,6 @@ Operational semantics
 
 Unlike in unsafe languages like C and C++, Ada specifies that operations
 on integers should be checked for overflows.
-
-.. gusthoff: As I've suggested in Issue #1, we should avoid language wars...
 
 .. code-block:: ada
 
@@ -670,10 +649,8 @@ parlance. The reason for this designation is due to their behavior in case of
 overflow: They simply "wrap around", as if a modulo operation was applied.
 
 For machine sized modular types, this mimics the most common implementation
-defined behavior of unsigned types. However, the neat thing is that this will
-work for any modular type.
-
-.. gusthoff: "neat" ;-) (see other comments on informal style above)
+defined behavior of unsigned types. However, the main advantage is that
+this works for any modular type:
 
 .. code-block:: ada
 
@@ -698,8 +675,6 @@ you can rely on it to implement portable code. Also, being able to leverage the
 wrapping on arbitrary bounds is very useful to implement certain algorithms and
 data structures, such as
 `ring buffers <https://en.m.wikipedia.org/wiki/Circular_buffer>`__.
-
-.. gusthoff: instead of pointing to Wikipedia, we could have an example of ring buffers implemented in Ada...
 
 Enumerations
 ------------
@@ -735,7 +710,7 @@ already know is that you can use them as a target to a case expression.
     end Greet;
 
 Enum types are powerful enough that they're used to represent the standard
-boolean type, that is so defined:
+Boolean type, that is so defined:
 
 .. gusthoff: explain why this is considered "powerful"
 
@@ -804,10 +779,8 @@ Ada, such conversions must be made explicit:
 .. gusthoff: maybe we should mention that the "Adaïste way" usually is to create a function called To_Miles that does this conversion...
 
 If you write a lot of numeric code, this might seem painful at first, because
-your code might end up containing a lot of conversions. But if you are like me,
-you will probably end up seeing this as a very good thing:
-
-.. gusthoff: "if you are like me"? Who are you? Why should I be like you? ;-) Again, I'd be more formal and simply say something like this: "However, the advantages of this approach are:"
+your code might end up containing a lot of conversions. However, this
+approach has some advantages. For example:
 
 - You can rely on the fact that no implicit conversion will ever happen in your
   numeric code. In C for example, the rules for implicit conversions are very
