@@ -796,7 +796,7 @@ introduce conversion functions along with the types.
        function To_Miles (M : Meters) return Miles is
        --                             ^ Return type
        begin
-          return M * 1609 / 1000; 
+          return M * 1609 / 1000;
        end Miles;
 
        Dist_Us : Miles;
@@ -1020,11 +1020,11 @@ detects the violation.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type Days is (Monday, Tuesday, Wednesday, Thursday,
                      Friday, Saturday, Sunday);
-    
+
        subtype Weekend_Days is Days range Saturday .. Sunday;
        Day : Days := Saturday;
        Weekend : Weekend_Days;
@@ -1051,11 +1051,11 @@ their characteristics in detail, but let's start with one way of declaring one.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type Index is range 1 .. 5;
-    
+
        type My_Int_Array is array (Index) of My_Int;
        --                                    ^ Type of elements
        --                          ^ Bounds of the array
@@ -1099,7 +1099,7 @@ to index into the array.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type Index is range 11 .. 15;
@@ -1115,7 +1115,7 @@ to index into the array.
 
 The first repercussion is that the low bound of your array can be any value: In
 the first example we constructed an array type whose first index is ``1``, but
-in the example above we declare an array type whose first index is ``11``. 
+in the example above we declare an array type whose first index is ``11``.
 
 That's perfectly fine in Ada, and moreover you can see that since we use the
 index type as a range to iterate on the array indices, the code using the array
@@ -1142,22 +1142,22 @@ means that you can use enum types to index arrays.
       type Month_Duration is range 1 .. 31;
       type Month is (Jan, Feb, Mar, Apr, May, Jun,
                      Jul, Aug, Sep, Oct, Nov, Dec);
-   
+
       type My_Int_Array is array (Month) of Month_Duration;
       --                          ^ Can use an enum as the
       --                            index
-   
+
       Tab : constant My_Int_Array :=
       --    ^ constant is like a variable but cannot be
       --      modified
         (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
       --  Maps months to number of days
-   
+
       Feb_Days : Month_Duration := Tab (Feb);
       --  Number of days in February
    begin
       for M in Month loop
-         Put_Line 
+         Put_Line
            (Month'Image (M) & " has "
             & Month_Duration'Image (Tab (I))  & " days.");
             --                                ^ Concatenation operator
