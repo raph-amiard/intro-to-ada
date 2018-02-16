@@ -73,12 +73,13 @@ considered that:
    keyword is an abbreviation, etc.
 
 -  Very strong typing. It is very easy to introduce new types in Ada,
-   sometimes more than reusing existing ones. It is in the same
-   ball-park as many functional languages in that regard, except that
-   the programmer has to be much more explicit about typing, because
-   there is almost no type inference.
+   sometimes more than reusing existing ones.
 
-.. gusthoff: The comparison with functional languages is of course valid. However, if I had no idea about functional languages, I'd be lost in the paragraph above.
+    It is in the same ball-park as many functional languages in that regard,
+    except that the programmer has to be much more explicit about typing, because
+    there is almost no type inference.
+
+.. AI for amiard: Develop a little bit. Put in the proper format when we have decided about it (issue #4)
 
 -  Explicit is better than implicit: Although weirdly this is a
    `Python <www.TODOpython.com>`__ commandment, Ada takes it way further
@@ -428,9 +429,6 @@ Ada. What is important to know at this stage:
         --  Call to Nested
     end Main;
 
-.. gusthoff: Is this really the best place to mention nested procedures? I'd leave them for later...
-.. amiard: I think it's fine to mention they exist. we will talk about those in more detail later.
-
 -  You cannot declare anything outside of a declarative region. If you
    need to scope variables in a subprogram, you can introduce a new
    declarative region with the ``declare`` block
@@ -683,12 +681,9 @@ Enumerations
 Enumeration types are another nicety of Ada's type system. Unlike C's enums,
 they are *not* integers, and each new enum type is incompatible with other enum
 types. Enum types are part of the bigger family of discrete types, which makes
-them usable in certain situations that we will disclose later, but one that we
-already know is that you can use them as a target to a case expression.
-
-.. gusthoff: when the rest of the book is ready, we should have links to other sections instead of just saying "in certain situations that we will disclose later." We might trigger the reader's curiosity, but we're not disclosing where this information can be found. It probably makes sense to add a TODO item here.
-
-.. amiard: I agree with you on this, in this case it's not clear for me how to do it though: The information probably will be in multiple sections. Should we link to all of them ?
+them usable in certain situations that we will disclose later (`here
+<TODOLINKTODISCRETEFEATURES`__, here and here) but one that we already know is
+that you can use them as a target to a case expression.
 
 .. code-block:: ada
 
@@ -722,14 +717,10 @@ represent the standard Boolean type, that is so defined:
 As mentioned previously, every "built-in" type in Ada is defined with facilities
 generally available to the user.
 
-.. gusthoff: maybe add a link to where this is mentioned? What else can the user achieve with these facilities? Maybe a link to a section that explains how these facilities can be used?
-
-.. amiard: This is actually the whole section about types: we mention in integer types that the std int is defined with the facilities we're showing. We can put a link but it's 2 pages above. what do you think ?
-
 Decimal types
 -------------
 
-TODO: Add section on Floating point and fixed point numbers
+.. AI for gusthoff: Add section on Floating point and fixed point numbers
 
 Strong typing
 -------------
@@ -747,18 +738,14 @@ with each other, as we can see in the following example:
        type Meters is range 0 .. 10_000;
        type Miles is range 0 .. 5_000;
 
-       Dist_Us : Miles;
+       Dist_Imperial : Miles;
        --  Declare a constant
-       Dist_Eu : constant Meters := 100;
+       Dist_SI : constant Meters := 100;
     begin
        --  Not correct: types mismatch
-       Dist_Us := Dist_Eu * 1609 / 1000;
-       Put_Line (Miles'Image (Dist_Us));
+       Dist_Imperial := Dist_SI * 1609 / 1000;
+       Put_Line (Miles'Image (Dist_Imperial));
     end Greet;
-
-.. gusthoff: there is more to the world than the EU and the USA... ;-) Maybe we should rather indicate that one of the units comes from the Imperial system, and the other one from the SI (e.g. rename to "Dist_Imperial" and "Dist_SI").
-
-.. amiard: Ok fine by me. Can I let you take care of that ?
 
 This is true for every distinct type. It also means that, in the general case,
 an expression like ``2 * 3.0`` will trigger a compilation error. In a language
@@ -771,14 +758,14 @@ Ada, such conversions must be made explicit:
     procedure Conv is
        type Meters is range 0 .. 10_000;
        type Miles is range 0 .. 5_000;
-       Dist_Us : Miles;
-       Dist_Eu : constant Meters := 100;
+       Dist_Imperial : Miles;
+       Dist_SI : constant Meters := 100;
     begin
-       Dist_Us := Miles (Dist_Eu * 1609 / 1000);
-       --         ^ Type conversion, from Meters to Miles
+       Dist_Imperial := Miles (Dist_SI * 1609 / 1000);
+       --               ^ Type conversion, from Meters to Miles
        --  Now the code is correct
 
-       Put_Line (Miles'Image (Dist_Us));
+       Put_Line (Miles'Image (Dist_Imperial));
     end;
 
 Of course, we probably do not want to write the conversion code every time we
@@ -796,14 +783,14 @@ introduce conversion functions along with the types.
        function To_Miles (M : Meters) return Miles is
        --                             ^ Return type
        begin
-          return M * 1609 / 1000; 
+          return M * 1609 / 1000;
        end Miles;
 
-       Dist_Us : Miles;
-       Dist_Eu : constant Meters := 100;
+       Dist_Imperial : Miles;
+       Dist_SI : constant Meters := 100;
     begin
-       Dist_Us := To_Miles (Dist_Eu);
-       Put_Line (Miles'Image (Dist_Us));
+       Dist_Imperial := To_Miles (Dist_SI);
+       Put_Line (Miles'Image (Dist_Imperial));
     end;
 
 This is also the first time we use a function. We will study `functions and
@@ -818,9 +805,7 @@ advantages. For example:
   numeric code. In C for example, the rules for implicit conversions are very
   non-obvious. In Ada the code will always do exactly what it seems to do.
 
-.. gusthoff: I personally know what you mean, but the paragraph above is not really convincing. Maybe add some examples?
-
-.. amiard: I think it is pretty convincing! Please feel free to make it more convincing for you ;) I think it is one of the rare occurences where we can put a C code snippet, what do you think ?
+.. AI for gusthoff: Do something more explicit about that
 
 - You can use Ada's strong typing to help `enforce invariants
   <TODOLINKINVARIANTS>`__ in your code, as in the example above: Since Miles
@@ -929,10 +914,6 @@ behavior.
     Something similar to what is called inheritance in Java/C++ will be seen
     when we talk about `tagged types <TODOLINKABOUTTAGGEDTYPES>`__.
 
-.. gusthoff: This sounds like an interesting feature in Ada. However, the example above looks a little bit artificial, so the reader might not get an idea where this can be used in the "real world".
-
-.. amiard: That's arguably the problem with synthetic examples in courses like this. If you have a better idea involving the concepts we've already seen in this class, feel free to add it. One other option that we have is to wait after the section on subprograms to talk about this. Or even better, revisit after subprograms, in the "more about types" section, and put a link to that here.
-
 When you inherit a type, what we call primitive operations are inherited. While
 we will at some point get into the nitty-gritty of what a `primitive operation
 <TODOLINKPRIM>`__ is, for the moment, we will use a very simple definition: A
@@ -1020,11 +1001,11 @@ detects the violation.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type Days is (Monday, Tuesday, Wednesday, Thursday,
                      Friday, Saturday, Sunday);
-    
+
        subtype Weekend_Days is Days range Saturday .. Sunday;
        Day : Days := Saturday;
        Weekend : Weekend_Days;
@@ -1051,11 +1032,11 @@ their characteristics in detail, but let's start with one way of declaring one.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type Index is range 1 .. 5;
-    
+
        type My_Int_Array is array (Index) of My_Int;
        --                                    ^ Type of elements
        --                          ^ Bounds of the array
@@ -1104,7 +1085,7 @@ to index into the array.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type Index is range 11 .. 15;
@@ -1120,7 +1101,7 @@ to index into the array.
 
 The first repercussion is that the low bound of your array can be any value: In
 the first example we constructed an array type whose first index is ``1``, but
-in the example above we declare an array type whose first index is ``11``. 
+in the example above we declare an array type whose first index is ``11``.
 
 That's perfectly fine in Ada, and moreover you can see that since we use the
 index type as a range to iterate on the array indices, the code using the array
@@ -1147,22 +1128,22 @@ means that you can use enum types to index arrays.
       type Month_Duration is range 1 .. 31;
       type Month is (Jan, Feb, Mar, Apr, May, Jun,
                      Jul, Aug, Sep, Oct, Nov, Dec);
-   
+
       type My_Int_Array is array (Month) of Month_Duration;
       --                          ^ Can use an enum as the
       --                            index
-   
+
       Tab : constant My_Int_Array :=
       --    ^ constant is like a variable but cannot be
       --      modified
         (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
       --  Maps months to number of days
-   
+
       Feb_Days : Month_Duration := Tab (Feb);
       --  Number of days in February
    begin
       for M in Month loop
-         Put_Line 
+         Put_Line
            (Month'Image (M) & " has "
             & Month_Duration'Image (Tab (I))  & " days.");
             --                                ^ Concatenation operator
