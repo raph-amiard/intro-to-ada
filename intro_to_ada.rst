@@ -1393,7 +1393,7 @@ to index into the array.
     LANGCOMP: Ada arrays have by-value semantics, which means that when you
     pass one, in terms of semantics you pass the whole array, not just a handle
     to it, unlike in a language like Python or Java. It also means that unlike
-    in C or C++, arrays are not naked pointers in disguise. 
+    in C or C++, arrays are not naked pointers in disguise.
 
 .. code-block:: ada
 
@@ -1535,7 +1535,7 @@ context. Ada allows you to do that too.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type My_Int_Array is array (1 .. 5) of My_Int;
@@ -1573,7 +1573,7 @@ via an attribute on array objects:
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type My_Int_Array is array (1 .. 5) of My_Int;
@@ -1592,7 +1592,7 @@ If you want more fine grained control, you can use the separate attributes
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        type My_Int is range 0 .. 1000;
        type My_Int_Array is array (1 .. 5) of My_Int;
@@ -1624,12 +1624,12 @@ In that case, the bounds will need to be provided when instanciating the type.
     procedure Greet is
        type Days is (Monday, Tuesday, Wednesday,
                      Thursday, Friday, Saturday, Sunday);
-    
+
        type Workload_Type is array (Days range <>) of Natural;
        --  Indefinite array type
        --                           ^ Bounds are of type Days,
        --                             but not known
-    
+
        Workload : constant Workload_Type (Monday .. Friday) :=
        --                                 ^ Specify the bounds
        --                                   when declaring
