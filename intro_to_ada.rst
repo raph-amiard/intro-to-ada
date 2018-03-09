@@ -2026,8 +2026,6 @@ Let's first look into a simple procedure that swaps variables of the type
 
 .. code-block:: ada
 
-    --% run_file: Test_Non_Generic_Swap_Colors.adb
-
     with Ada.Text_IO;
     use  Ada.Text_IO;
 
@@ -2076,8 +2074,6 @@ and name it ``Generic_Swap``. This generic version can work on any type.
 This is achieved by the declaration of the formal type ``T``.
 
 .. code-block:: ada
-
-    --% run_file: Test_Swap_Colors.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
@@ -2133,8 +2129,6 @@ reversing elements of an array. First, let's start with a non-generic
 version of the algorithm that works specifically for the ``Color`` type:
 
 .. code-block:: ada
-
-    --% run_file: Test_Non_Generic_Reverse_Colors.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
@@ -2197,8 +2191,6 @@ three components of the algorithm:
 This is a generic version of the algorithm:
 
 .. code-block:: ada
-
-    --% run_file: Test_Reverse_Colors.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
@@ -2275,8 +2267,6 @@ that contains the generic array type definition:
 
 .. code-block:: ada
 
-    --% filename: Simple_Generic_Array_Pkg.ads
-
     generic
        type T is private;
        type Index is range <>;
@@ -2308,8 +2298,6 @@ This is the updated version of the our test application for the reversing
 algorithm:
 
 .. code-block:: ada
-
-    --% run_file: Test_Reverse_Colors_Simple_Pkg.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
@@ -2387,8 +2375,6 @@ specification:
 
 .. code-block:: ada
 
-    --% filename: Generic_Array_Pkg.ads
-
     generic
        type T is private;
        type Index is range <>;
@@ -2403,8 +2389,6 @@ procedure implementation. Here, we haven't changed the previous algorithm
 -- we're simply moving the existing code into the new package body:
 
 .. code-block:: ada
-
-    --% filename: Generic_Array_Pkg.adb
 
     package body Generic_Array_Pkg is
        procedure Reverse_Array (X : in out Array_T) is
@@ -2428,8 +2412,6 @@ In the test application, we just need to instantiate the
 and the procedure (``Reverse_Array``):
 
 .. code-block:: ada
-
-    --% run_file: Test_Reverse_Colors_Pkg.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
@@ -2487,8 +2469,6 @@ This is a version of the test application that makes use of the generic
 ``Perform_Test`` procedure:
 
 .. code-block:: ada
-
-    --% run_file: Test_Reverse_Colors_Pkg.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
@@ -2593,8 +2573,6 @@ references the ``Generic_Array_Pkg`` package and the two formal elements
 
  .. code-block:: ada
 
-   --% filename: Generic_Array_Bundle.ads
-
     with Generic_Array_Pkg;
 
     generic
@@ -2607,8 +2585,6 @@ references the ``Generic_Array_Pkg`` package and the two formal elements
 Then, we update the definition of ``Perform_Test``:
 
 .. code-block:: ada
-
-    --% run_file: Test_Reverse_Colors_Pkg.adb
 
     with Ada.Text_IO;
     use  Ada.Text_IO;
