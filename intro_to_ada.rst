@@ -1734,7 +1734,7 @@ literals, as we can see in the example below.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        Message : String (1 .. 11) := "dlroW olleH";
        --        ^ Pre-defined array type.
@@ -1757,7 +1757,7 @@ array type, if the bounds can be deduced from the initialization expression.
 .. code-block:: ada
 
     with Ada.Text_IO; use Ada.Text_IO;
-    
+
     procedure Greet is
        Message : constant String := "Hello World";
        --                 ^ Bounds are automatically computed
@@ -1903,24 +1903,6 @@ Abstract data types
 
 Generics
 ========
-
-Generic declaration
--------------------
-
-Generic body
-------------
-
-Generic instantiation
----------------------
-
-Formal types
-------------
-
-Formal objects
---------------
-
-Formal subprograms
-------------------
 
 Exceptions
 ==========
