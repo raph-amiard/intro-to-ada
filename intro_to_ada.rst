@@ -2681,8 +2681,8 @@ Protected objects: entries
 Protected types
 ---------------
 
-Interfacing
-===========
+Interfacing with C and C++
+==========================
 
 Type convention
 ---------------
