@@ -1908,13 +1908,13 @@ Records
 Aggregates: A primer
 --------------------
 
-- default values
+default values
 ~~~~~~~~~~~~~~~~
 
-- Literals
+Literals
 ~~~~~~~~~~
 
-- Selection
+Selection
 ~~~~~~~~~~~
 
 Access types (pointers)
