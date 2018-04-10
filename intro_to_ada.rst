@@ -2082,8 +2082,55 @@ Subprograms
 Subprograms
 -----------
 
+So far, we used procedures a bit, mostly so we have a main body of code to
+execute, and showed one function or two. Those entities belong to a category
+called subprograms.
+
+There are two kinds of subprograms in Ada, functions and procedures. The main
+useful distinction between the two is that functions return a value, and
+procedures don't.
+
+.. code-block:: ada
+
+    package Week is
+       type Days is (Monday, Tuesday, Wednesday,
+                     Thursday, Friday, Saturday, Sunday);
+    
+       function Get_Workload (Day : Days) return Natural;
+       --  We declare (but don't define) a function with one
+       --  parameter, returning a Natural integer
+    end Week;
+
+As we saw before in the packages section, if you want to declare a subprogram
+declaration to the package declaration. This declaration will not define the
+function's body, only its name and profile (and hopefully some documentation),
+so that clients of the package know how to use it.
+
+Subprograms in Ada can expectedly have parameters. One syntactically important note is that:
+
+- As we saw many times since the beginning of this class, a subprogram which
+  has no parameters does not have a parameter section at all, following the
+  form ``procedure [name]`` or ``function [name] return [type]``.
+
+.. code-block:: ada
+
+    package Week is
+       type Days is (Monday, Tuesday, Wednesday,
+                     Thursday, Friday, Saturday, Sunday);
+    
+       function Get_Day_Name
+          (Day : Days := Monday) return String;
+       --                             ^ We can return any type,
+       --                               even indefinite ones
+       --           ^ Default value for parameter
+    end Week;
+
 Parameters modes
 ----------------
+
+.. admonition:: Historically
+    Functions and procedures were originally more different in philosophy.
+    Before Ada 2005, one wasn't able to 
 
 Subprogram calls
 ----------------
