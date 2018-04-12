@@ -2491,6 +2491,7 @@ If you want to call a function and do not need it's result, you will still need 
     example this code would not be valid:
 
     .. code-block:: ada
+
         function Read_Int
            (Stream : Network_Stream; Result : out Integer) return Boolean;
 
@@ -2507,6 +2508,7 @@ If you want to call a function and do not need it's result, you will still need 
     - Either annotate the variable with a Unreferenced pragma, thusly:
 
     .. code-block:: ada
+
         B : Boolean := Read_Int (Stream, My_Int);
         pragma Unreferenced (B);
 
