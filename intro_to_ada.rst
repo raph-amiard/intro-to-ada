@@ -3569,6 +3569,7 @@ Delay
 ~~~~~
 
 .. code-block:: ada
+
     --% run_file: Show_Delay.adb
     --% make_flags: -gnaty
 
