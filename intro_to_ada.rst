@@ -1432,7 +1432,7 @@ throughout the course, and one of those is to initalize records.
 
 An aggregate is a list of values separated by commas and enclosed in
 parentheses. It is a valid expression in any context where a value of the
-record can be expected. 
+record can be expected.
 
 Values for the components can be specified positionally, as in the first
 example, or by name, as in the second example. A mixture of positional and
@@ -1962,7 +1962,7 @@ subtype used as component will need to have a fixed size.
        subtype Day_Name is String (1 .. 2);
        --  Subtype of string with known size
 
-       type Days_Name_Type 
+       type Days_Name_Type
        is array (Days) of Day_Name;
        --        ^ Type of the index
        --                 ^ Type of the element. Must be
@@ -2184,7 +2184,7 @@ procedures don't.
     package Week is
        type Days is (Monday, Tuesday, Wednesday,
                      Thursday, Friday, Saturday, Sunday);
-    
+
        function Get_Workload (Day : Days) return Natural;
        --  We declare (but don't define) a function with one
        --  parameter, returning a Natural integer
@@ -2205,7 +2205,7 @@ return [type]``.
     package Week is
        type Days is (Monday, Tuesday, Wednesday,
                      Thursday, Friday, Saturday, Sunday);
-    
+
        function Get_Day_Name
           (Day : Days := Monday) return String;
        --                             ^ We can return any type,
@@ -2269,7 +2269,7 @@ That we could then use thusly:
 
     procedure Show_Days is
     begin
-       Put_Line (Week.Get_Day_Name); 
+       Put_Line (Week.Get_Day_Name);
        --             ^ Paramless call, value of Day parameter is Monday
        for Day in Week.Days loop
           Put_Line (Week.Get_Day_Name (Day));
@@ -2295,11 +2295,11 @@ perfectly acceptable to name every parameter if it makes the code clearer.
     package Week is
        type Days is (Monday, Tuesday, Wednesday,
                      Thursday, Friday, Saturday, Sunday);
-    
+
        type Language is (English, Italian);
 
        function Get_Day_Name (Day : Days; Lang : Language := English) return String;
-    end Week; 
+    end Week;
 
     with Week; use Week
     with Ada.Text_IO; use Ada.Text_IO;
@@ -2313,7 +2313,7 @@ Parameters modes
 ----------------
 
 .. amiard TODO: Talk about early returns from procedures, and grouping
-   parameters. 
+   parameters.
    Talk about the fact that order is unimportant with named parameters (with example)
 
 So far we have seen that Ada is a safety focused language. There are many ways
@@ -2343,7 +2343,7 @@ been showing has been using ``in`` parameters.
 
 .. admonition:: Historically
     Functions and procedures were originally more different in philosophy.
-    Before Ada 2005, one wasn't able to 
+    Before Ada 2005, one wasn't able to
 
 Subprogram calls
 ----------------
@@ -2591,7 +2591,7 @@ Aggregates: A primer
 --------------------
 
 So far, we have talked about, and showcased aggregates quite a bit. Now we will
-try and be more comprehensive about them. 
+try and be more comprehensive about them.
 
 Aggregates are the mean by which you will describe literal values for composite
 types in Ada. They are a very powerful notation that will allow you to avoid
